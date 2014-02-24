@@ -1,0 +1,4 @@
+access_key_id: <%=
+  configured.access_key_id || configured.aws_access_key_id %>
+secret_access_key: <%=
+  configured.secret_access_key || configured.aws_secret_access_key %>

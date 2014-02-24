@@ -1,0 +1,78 @@
+{
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "region": "us-east-1",
+      "source_ami": "ami-35dbde5c",
+      "instance_type": "m1.small",
+      "ssh_username": "ubuntu",
+      "ami_name": "mdsol-ubuntu-13.10-193p125 20140224-230707",
+      "ami_description": "Ubuntu 13.10 + Ruby v1.9.3-p125 (20140224-230707)",
+      "tags": {
+        "Company": "Medidata Solutions, Inc.",
+        "company": "mdsol",
+        "Name": "mdsol-ubuntu-13.10-193p125",
+        "Description": "Ubuntu 13.10 + Ruby v1.9.3-p125 (20140224-230707)",
+        "Product": "DevTools-created-AMI",
+        "Type": "BaseAMI",
+        "Environment": "production",
+        "Owner": "benton",
+        "CreatedAt": "2014/02/24 at 23:07:07",
+        "CreatedFrom": "ami-35dbde5c"
+      },
+      "name": "mdsol-ubuntu-13.10-193p125-us-east-1"
+    },
+    {
+      "type": "amazon-ebs",
+      "region": "us-east-1",
+      "source_ami": "ami-35dbde5c",
+      "instance_type": "m1.small",
+      "ssh_username": "ubuntu",
+      "ami_name": "mdsol-ubuntu-13.10-193p327 20140224-230707",
+      "ami_description": "Ubuntu 13.10 + Ruby v1.9.3-p327 (20140224-230707)",
+      "tags": {
+        "Company": "Medidata Solutions, Inc.",
+        "company": "mdsol",
+        "Name": "mdsol-ubuntu-13.10-193p327",
+        "Description": "Ubuntu 13.10 + Ruby v1.9.3-p327 (20140224-230707)",
+        "Product": "DevTools-created-AMI",
+        "Type": "BaseAMI",
+        "Environment": "production",
+        "Owner": "benton",
+        "CreatedAt": "2014/02/24 at 23:07:07",
+        "CreatedFrom": "ami-35dbde5c"
+      },
+      "name": "mdsol-ubuntu-13.10-193p327-us-east-1"
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "scripts": [
+        "scripts/apt-get_update.sh",
+        "scripts/install_ruby.sh"
+      ],
+      "environment_vars": [
+        "DEBIAN_FRONTEND=noninteractive",
+        "RUBY_SRC_URL=ftp://ftp.ruby-lang.org/pub/ruby/1.9/ruby-1.9.3-p125.tar.gz"
+      ],
+      "only": [
+        "mdsol-ubuntu-13.10-193p125-us-east-1"
+      ]
+    },
+    {
+      "type": "shell",
+      "scripts": [
+        "scripts/apt-get_update.sh",
+        "scripts/install_ruby.sh"
+      ],
+      "environment_vars": [
+        "DEBIAN_FRONTEND=noninteractive",
+        "RUBY_SRC_URL=ftp://ftp.ruby-lang.org/pub/ruby/1.9/ruby-1.9.3-p327.tar.gz"
+      ],
+      "only": [
+        "mdsol-ubuntu-13.10-193p327-us-east-1"
+      ]
+    }
+  ]
+}

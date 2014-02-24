@@ -1,0 +1,40 @@
+<%  # The ENV variables: UBUNTU_VERSIONS, RUBY_VERSIONS, and AWS_REGIONS
+    # are whitespace-delimited lists! (they're optional, defaults are provided)
+ubuntus = configured.ubuntu_versions ?
+          configured.ubuntu_versions.split(/\s+/) : Bakery::DEFAULT_UBUNTUS
+rubies  = configured.ruby_versions ?
+          configured.ruby_versions.split(/\s+/)   : Bakery::DEFAULT_RUBIES
+regions = configured.aws_regions ?
+          configured.aws_regions.split(/\s+/)     : Bakery::DEFAULT_REGIONS
+%>---
+ubuntu_versions:
+<%= ubuntus.to_yaml.gsub(/\A---\n/, '') %>
+ruby_versions:
+<%= rubies.to_yaml.gsub(/\A---\n/, '') %>
+aws_regions:
+<%= regions.to_yaml.gsub(/\A---\n/, '') %>
+builders:
+- type: amazon-ebs
+  region: us-east-1
+  source_ami: (computed)
+  instance_type: m1.small
+  ssh_username: ubuntu
+  ami_name: (computed)
+  ami_description: (computed)
+  tags:
+    Company: "Medidata Solutions, Inc."
+    company: mdsol
+    Name: (computed)
+    Description: (computed)
+    Product: DevTools-created-AMI
+    Type: BaseAMI
+    Environment: production
+    Owner: (computed)
+    CreatedAt: (computed)
+provisioners:
+- type: shell
+  scripts:
+  - scripts/apt-get_update.sh
+  - scripts/install_ruby.sh
+  environment_vars:
+  - DEBIAN_FRONTEND=noninteractive
